@@ -1,5 +1,3 @@
-import img2 from "@/assets/image2.png"
-import img3 from "@/assets/image3.png"
 import Navbar from "@/components/Navbar"
 import Home from "@/components/Home"
 import About from "@/components/About"
