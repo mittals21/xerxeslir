@@ -11,9 +11,9 @@ import Footer from "@/components/Footer"
 
 export default function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col">
       <Navbar />
-      <main className="flex-1">
+      <main className="">
         <Home />
         <Services />
         <WhyUs />

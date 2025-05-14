@@ -8,7 +8,7 @@ import spare from "@/assets/spareParts.jpg"
 const WhyUs = () => {
   return (
     <div>
-      <section className="bg-primary/5 py-16 md:py-24 h-screen">
+      <section className="bg-primary/5 py-16 md:py-24 min-h-screen">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">

@@ -4,8 +4,8 @@ import globalTrade from "@/assets/globalTrade.jpg"
 
 const About = () => {
   return (
-    <div>
-      <section id="about" className="bg-muted/50 py-16 md:py-24 h-screen">
+    <div className="">
+      <section id="about" className="bg-muted/50 py-16 md:py-24 min-h-screen">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">

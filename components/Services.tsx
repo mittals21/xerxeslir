@@ -5,7 +5,7 @@ import React from "react"
 const Services = () => {
   return (
     <div>
-      <section id="services" className="py-16 md:py-24 h-screen">
+      <section id="services" className="py-16 md:py-24 min-h-screen">
         <div className="container">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
