@@ -34,23 +34,35 @@ const Navbar = () => {
       }`}
     >
       <div className="container flex h-16 items-center justify-between py-4">
-        <div className="flex items-center gap-2">
+        <Link
+          href="/"
+          className="flex items-center gap-2 hover:opacity-80 transition"
+        >
           <Globe className="h-6 w-6 text-primary" />
           <span className="md:text-xl text-base font-bold">XERXESLIR EXIM</span>
-        </div>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6">
           <Link href="#home" className="text-sm font-medium hover:text-primary">
             Home
           </Link>
-          <Link href="#about" className="text-sm font-medium hover:text-primary">
+          <Link
+            href="#about"
+            className="text-sm font-medium hover:text-primary"
+          >
             About Us
           </Link>
-          <Link href="#services" className="text-sm font-medium hover:text-primary">
+          <Link
+            href="#services"
+            className="text-sm font-medium hover:text-primary"
+          >
             Services
           </Link>
-          <Link href="#contact" className="text-sm font-medium hover:text-primary">
+          <Link
+            href="#contact"
+            className="text-sm font-medium hover:text-primary"
+          >
             Contact
           </Link>
         </nav>
@@ -97,28 +109,28 @@ const Navbar = () => {
         <div className="flex flex-col gap-2 p-4">
           <Link
             href="#home"
-            className="text-sm font-medium hover:text-primary"
+            className="text-base font-medium hover:text-primary"
             onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             href="#about"
-            className="text-sm font-medium hover:text-primary"
+            className="text-base font-medium hover:text-primary"
             onClick={() => setIsOpen(false)}
           >
             About Us
           </Link>
           <Link
             href="#services"
-            className="text-sm font-medium hover:text-primary"
+            className="text-base font-medium hover:text-primary"
             onClick={() => setIsOpen(false)}
           >
             Services
           </Link>
           <Link
             href="#contact"
-            className="text-sm font-medium hover:text-primary"
+            className="text-base font-medium hover:text-primary"
             onClick={() => setIsOpen(false)}
           >
             Contact

@@ -28,8 +28,8 @@ const Home = () => {
               machinery, food commodities, light machinery, and spare parts.
             </p>
           </div>
-          <div className="flex flex-col gap-2 min-[400px]:flex-row ">
-            <Button asChild size="lg">
+          <div className="flex flex-col gap-2 min-[450px]:flex-row ">
+            <Button asChild size="lg" >
               <Link href="#services">Explore Our Services</Link>
             </Button>
             <Button
