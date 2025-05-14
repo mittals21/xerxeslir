@@ -9,9 +9,9 @@ const Contact = () => {
         <div className="container">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
+              {/* <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
                 Get in Touch
-              </div>
+              </div> */}
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                 Contact XERXESLIR EXIM
               </h2>

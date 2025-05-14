@@ -1,16 +1,17 @@
 import Image from "next/image"
 import React from "react"
+import globalTrade from "@/assets/globalTrade.jpg"
 
 const About = () => {
   return (
     <div>
-      <section id="about" className="bg-muted/50 py-16 md:py-24">
+      <section id="about" className="bg-muted/50 py-16 md:py-24 h-screen">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">
-              <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
+              {/* <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
                 About Us
-              </div>
+              </div> */}
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                 Welcome to XERXESLIR EXIM
               </h2>
@@ -43,7 +44,8 @@ const About = () => {
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-lg">
               <Image
-                src="/placeholder.svg?height=800&width=600"
+                // src="/placeholder.svg?height=800&width=600"
+                src={globalTrade}
                 alt="Global trade operations"
                 fill
                 className="object-cover"

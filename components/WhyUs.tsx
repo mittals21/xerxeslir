@@ -1,10 +1,14 @@
 import Image from "next/image"
 import React from "react"
+import food from "@/assets/food.jpg"
+import lightMachine from "@/assets/lightMachine.jpg"
+import agriculture from "@/assets/combine-harvester.jpg"
+import spare from "@/assets/spareParts.jpg"
 
 const WhyUs = () => {
   return (
     <div>
-      <section className="bg-primary/5 py-16 md:py-24">
+      <section className="bg-primary/5 py-16 md:py-24 h-screen">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">
@@ -119,7 +123,8 @@ const WhyUs = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="overflow-hidden rounded-lg">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
+                  // src="/placeholder.svg?height=300&width=300"
+                  src={agriculture}
                   alt="Agricultural machinery"
                   width={300}
                   height={300}
@@ -128,7 +133,9 @@ const WhyUs = () => {
               </div>
               <div className="overflow-hidden rounded-lg">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
+                  // src="/placeholder.svg?height=300&width=300"
+                  src={food}
+
                   alt="Food commodities"
                   width={300}
                   height={300}
@@ -137,7 +144,9 @@ const WhyUs = () => {
               </div>
               <div className="overflow-hidden rounded-lg">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
+                  // src="/placeholder.svg?height=300&width=300"
+                  src={lightMachine}
+
                   alt="Light machinery"
                   width={300}
                   height={300}
@@ -146,7 +155,9 @@ const WhyUs = () => {
               </div>
               <div className="overflow-hidden rounded-lg">
                 <Image
-                  src="/placeholder.svg?height=300&width=300"
+                  // src="/placeholder.svg?height=300&width=300"
+                  src={spare}
+
                   alt="Spare parts"
                   width={300}
                   height={300}
