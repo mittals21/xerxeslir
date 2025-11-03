@@ -19,6 +19,7 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    // Validation
     if (!name.trim()) {
       toast.error("Name is required")
       return
