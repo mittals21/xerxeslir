@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { Button } from "./Button"
-import { Mail, MapPin, Phone } from "lucide-react"
+import { Mail, MapPin, Phone, Copy } from "lucide-react"
 import emailjs from "@emailjs/browser"
 import { toast } from "sonner"
 
@@ -16,52 +16,39 @@ const Contact = () => {
 
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
 
+  // ✅ handle copy function
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      toast.success(`Copied: ${text}`)
+    } catch {
+      toast.error("Failed to copy!")
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Validation
-    if (!name.trim()) {
-      toast.error("Name is required")
-      return
-    }
-    if (!email.trim()) {
-      toast.error("Email is required")
-      return
-    }
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email")
-      return
-    }
-    if (!company.trim()) {
-      toast.error("Company is required")
-      return
-    }
-    if (!subject.trim()) {
-      toast.error("Subject is required")
-      return
-    }
-    if (!message.trim()) {
-      toast.error("Message is required")
-      return
-    }
+    if (!name.trim()) return toast.error("Name is required")
+    if (!email.trim()) return toast.error("Email is required")
+    if (!emailRegex.test(email))
+      return toast.error("Please enter a valid email")
+    if (!company.trim()) return toast.error("Company is required")
+    if (!subject.trim()) return toast.error("Subject is required")
+    if (!message.trim()) return toast.error("Message is required")
 
     setIsLoading(true)
 
     try {
       const formData = { name, email, company, subject, message }
-
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
         formData,
-        {
-          publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string,
-        }
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string }
       )
 
       toast.success("Message sent successfully ✅")
-
-      // Reset form
       setName("")
       setEmail("")
       setCompany("")
@@ -74,12 +61,6 @@ const Contact = () => {
       setIsLoading(false)
     }
   }
-
-  console.log({
-    service: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-    template: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-    key: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-  })
 
   return (
     <div>
@@ -96,36 +77,62 @@ const Contact = () => {
               </p>
             </div>
           </div>
+
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
             {/* Left Side */}
             <div className="space-y-6">
+              {/* Email */}
               <div className="flex items-start gap-4">
                 <Mail className="h-6 w-6 text-primary" />
                 <div>
                   <h3 className="font-bold">Email Us</h3>
-                  <p className="text-muted-foreground">
-                    info@xerxeslirexim.com
+                  <p
+                    onClick={() => handleCopy("princejparmar81@gmail.com")}
+                    className="text-muted-foreground cursor-pointer flex items-center gap-2 group"
+                  >
+                    princejparmar81@gmail.com
+                    <Copy
+                      size={14}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    />
                   </p>
                 </div>
               </div>
+
+              {/* Phone */}
               <div className="flex items-start gap-4">
                 <Phone className="h-6 w-6 text-primary" />
                 <div>
                   <h3 className="font-bold">Call Us</h3>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                  <p
+                    onClick={() => handleCopy("+91 9979974046")}
+                    className="text-muted-foreground cursor-pointer flex items-center gap-2 group"
+                  >
+                    +91 9979974046
+                    <Copy
+                      size={14}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    />
+                  </p>
                 </div>
               </div>
+
+              {/* Address */}
               <div className="flex items-start gap-4">
                 <MapPin className="h-6 w-6 text-primary" />
                 <div>
                   <h3 className="font-bold">Visit Us</h3>
                   <p className="text-muted-foreground">
-                    123 Global Trade Center, Business District
+                    Maliya Sasan Gir Road
                     <br />
-                    New York, NY 10001, USA
+                    Junagadh - 362244
+                    <br />
+                    Gujarat, India
                   </p>
                 </div>
               </div>
+
+              {/* Hours */}
               <div className="rounded-lg border bg-muted/50 p-6">
                 <h3 className="mb-4 text-xl font-bold">Business Hours</h3>
                 <div className="space-y-2">
@@ -149,6 +156,7 @@ const Contact = () => {
             <div className="rounded-lg border bg-background p-6 shadow-sm">
               <h3 className="mb-4 text-xl font-bold">Send Us a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* form inputs remain unchanged */}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium">
@@ -176,6 +184,7 @@ const Contact = () => {
                     />
                   </div>
                 </div>
+
                 <div className="space-y-2">
                   <label htmlFor="company" className="text-sm font-medium">
                     Company
@@ -188,6 +197,7 @@ const Contact = () => {
                     placeholder="Enter your company name"
                   />
                 </div>
+
                 <div className="space-y-2">
                   <label htmlFor="subject" className="text-sm font-medium">
                     Subject
@@ -200,6 +210,7 @@ const Contact = () => {
                     placeholder="Enter subject"
                   />
                 </div>
+
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium">
                     Message
@@ -212,6 +223,7 @@ const Contact = () => {
                     placeholder="Enter your message"
                   />
                 </div>
+
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? "Sending..." : "Send Message"}
                 </Button>
