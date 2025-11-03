@@ -75,6 +75,12 @@ const Contact = () => {
     }
   }
 
+  console.log({
+    service: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+    template: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+    key: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+  })
+
   return (
     <div>
       <section id="contact" className="min-h-screen py-16 md:py-24">
