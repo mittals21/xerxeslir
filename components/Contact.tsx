@@ -1,17 +1,85 @@
-import React from "react"
+"use client"
+
+import React, { useState } from "react"
 import { Button } from "./Button"
 import { Mail, MapPin, Phone } from "lucide-react"
+import emailjs from "@emailjs/browser"
+import { toast } from "sonner"
 
 const Contact = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [company, setCompany] = useState("")
+  const [subject, setSubject] = useState("")
+  const [message, setMessage] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!name.trim()) {
+      toast.error("Name is required")
+      return
+    }
+    if (!email.trim()) {
+      toast.error("Email is required")
+      return
+    }
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email")
+      return
+    }
+    if (!company.trim()) {
+      toast.error("Company is required")
+      return
+    }
+    if (!subject.trim()) {
+      toast.error("Subject is required")
+      return
+    }
+    if (!message.trim()) {
+      toast.error("Message is required")
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const formData = { name, email, company, subject, message }
+
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        formData,
+        {
+          publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string,
+        }
+      )
+
+      toast.success("Message sent successfully ✅")
+
+      // Reset form
+      setName("")
+      setEmail("")
+      setCompany("")
+      setSubject("")
+      setMessage("")
+    } catch (err) {
+      console.error("EmailJS Error:", err)
+      toast.error("Failed to send message ❌")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div>
       <section id="contact" className="min-h-screen py-16 md:py-24">
         <div className="container">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              {/* <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
-                Get in Touch
-              </div> */}
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                 Contact XERXESLIR EXIM
               </h2>
@@ -22,6 +90,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            {/* Left Side */}
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <Mail className="h-6 w-6 text-primary" />
@@ -68,79 +137,76 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+
+            {/* Right Side (Form) */}
             <div className="rounded-lg border bg-background p-6 shadow-sm">
               <h3 className="mb-4 text-xl font-bold">Send Us a Message</h3>
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <label
-                      htmlFor="name"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
+                    <label htmlFor="name" className="text-sm font-medium">
                       Name
                     </label>
                     <input
                       id="name"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="flex h-10 w-full rounded-md border px-3 py-2 text-sm border-input"
                       placeholder="Enter your name"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label
-                      htmlFor="email"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
+                    <label htmlFor="email" className="text-sm font-medium">
                       Email
                     </label>
                     <input
                       id="email"
                       type="email"
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="flex h-10 w-full rounded-md border px-3 py-2 text-sm border-input"
                       placeholder="Enter your email"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label
-                    htmlFor="company"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="company" className="text-sm font-medium">
                     Company
                   </label>
                   <input
                     id="company"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    className="flex h-10 w-full rounded-md border px-3 py-2 text-sm border-input"
                     placeholder="Enter your company name"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label
-                    htmlFor="subject"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="subject" className="text-sm font-medium">
                     Subject
                   </label>
                   <input
                     id="subject"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="flex h-10 w-full rounded-md border px-3 py-2 text-sm border-input"
                     placeholder="Enter subject"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label
-                    htmlFor="message"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
+                  <label htmlFor="message" className="text-sm font-medium">
                     Message
                   </label>
                   <textarea
                     id="message"
-                    className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="flex min-h-[120px] w-full rounded-md border px-3 py-2 text-sm border-input"
                     placeholder="Enter your message"
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  Send Message
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </div>
